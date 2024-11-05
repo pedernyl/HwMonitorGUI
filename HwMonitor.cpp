@@ -46,7 +46,7 @@ void getMemoryInfo() {
 int main() {
     while (true) {
         getMemoryInfo();
-        std::this_thread::sleep_for(std::chrono::seconds(2)); // Update every 2 seconds
+        std::this_thread::sleep_for(std::chrono::seconds(1)); // Update every 1 seconds
     }
     return 0;
 }
