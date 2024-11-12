@@ -31,14 +31,17 @@ void getMemoryInfo() {
     long usedMem = totalMem - freeMem;
     long usedSwap = totalSwap - freeSwap;
 
+    double memUsagePercent = (totalMem > 0) ? (static_cast<double>(usedMem) / totalMem) * 100.0 : 0.0;
+    double swapUsagePercent = (totalSwap > 0) ? (static_cast<double>(usedSwap) / totalSwap) * 100.0 : 0.0;
+
     std::cout << "RAM Usage:" << std::endl;
     std::cout << "  Total RAM: " << totalMem / 1024 << " MB" << std::endl;
-    std::cout << "  Used RAM: " << usedMem / 1024 << " MB" << std::endl;
+    std::cout << "  Used RAM: " << usedMem / 1024 << " MB (" << memUsagePercent << "%)" << std::endl;
     std::cout << "  Free RAM: " << freeMem / 1024 << " MB" << std::endl;
 
     std::cout << "Swap Usage:" << std::endl;
     std::cout << "  Total Swap: " << totalSwap / 1024 << " MB" << std::endl;
-    std::cout << "  Used Swap: " << usedSwap / 1024 << " MB" << std::endl;
+    std::cout << "  Used Swap: " << usedSwap / 1024 << " MB (" << swapUsagePercent << "%)" << std::endl;
     std::cout << "  Free Swap: " << freeSwap / 1024 << " MB" << std::endl;
 }
 
@@ -70,7 +73,7 @@ int main() {
         std::cout << "\033[2J\033[1;1H";  // Clear the terminal
 
         getMemoryInfo();
-        
+
         double cpuUsage = getCpuUsage();
         if (cpuUsage >= 0) {
             std::cout << "CPU Usage: " << cpuUsage << "%" << std::endl;
@@ -78,7 +81,7 @@ int main() {
             std::cerr << "Failed to retrieve CPU usage." << std::endl;
         }
 
-        std::this_thread::sleep_for(std::chrono::seconds(1));  // Update every 1 seconds
+        std::this_thread::sleep_for(std::chrono::seconds(2));  // Update every 2 seconds
     }
     return 0;
 }
